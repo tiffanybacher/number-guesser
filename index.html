@@ -1,3 +1,5 @@
+<!-- Number Guesser -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +15,7 @@
   </header>
   <main>
     <section class="player-input">
-      <article class="range-field">
+      <article class="range-form">
         <h3>Set Range</h3>
         <form action="">
           <label for="min-range">Min Range</label>
@@ -23,15 +25,15 @@
           <input type="submit" value="Update" class="range-update btn">
         </form>
       </article>
-      <article class="guess-field">
+      <article class="challenger-form">
         <p>The current range is <span class="min-number">1</span> to <span class="max-number">100</span></p>
         <form action="">
-          <h3 class="guess-name name-1">Challenger 1</h3>        
+          <h3 class="challenger-name name-1">Challenger 1</h3>
           <label for="name-input-1">Name</label>
           <input type="text" id="name-input-1" class="name-input">
           <label for="guess-1">Guess</label>
           <input type="text" id="guess-1" class="num-input">
-          <h3 class="guess-name name-2">Challenger 2</h3>
+          <h3 class="challenger-name name-2">Challenger 2</h3>
           <label for="name-input-2">Name</label>
           <input type="text" id="name-input-2" class="name-input">
           <label for="guess-2">Guess</label>
@@ -44,13 +46,13 @@
       <article class="latest-score">
         <h3>Latest Score</h3>
         <div class="score score-1">
-          <h4 class="score-name name-1">Challenger 1</h4>
+          <h4 class="score-name name-1">Challenger 1 Name</h4>
           <h5>current guess</h5>
           <h6 class="current-guess current-guess-1">0</h6> 
           <p class="response response-1">Try to guess!</p>
         </div>
         <div class="score score-2">
-          <h4 class="score-name name-2">Challenger 2</h4>
+          <h4 class="score-name name-2">Challenger 2 Name</h4>
           <h5>current guess</h5>
           <h6 class="current-guess current-guess-2">0</h6>
           <p class="response response-2">Try to guess!</p>
@@ -59,7 +61,7 @@
     </section>
     <section class="winner-cards">
       <article class="card">
-        <h4 class="card-name name-1">Challenger 1</h4><h5> vs. </h5><h4 class="card-name name-2">Challenger 2</h4>
+        <h4 class="card-name name-1">Challenger 1 Name</h4><h5> vs. </h5><h4 class="card-name name-2">Challenger 2 Name</h4>
         <h2 class="winner-name">WINNER NAME</h2>
         <h2>WINNER</h2>
         <h5 class="num-guesses">0</h5><h5> GUESSES</h5>
