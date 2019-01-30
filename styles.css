@@ -1,1 +1,56 @@
-/*here is a test*/
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  background-color: #404041;
+  width: 100%;
+  height: 150px;
+}
+h1 {
+  text-align: center;
+  color: #DD1972;
+  font-size: 80px;
+  font-weight: 300;
+  margin-bottom: 0;
+}
+
+.header-bold {
+  font-weight: 700;
+}
+
+.sub-header {
+  text-align: center;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.sub-header:before, .sub-header:after {
+  content: "";
+  display: inline-block;
+  width: 185px;
+  margin: 0px auto;
+  vertical-align: middle;
+  border-bottom: 2px solid;
+}
+
+.container {
+  display: flex;
+}
+
+.player-input {
+  width: 50%;
+  background-color: #f7f7f7;
+}
+
+.range-form {
+  border: 2px solid #cccccc;
+  margin: 10px;
+  background-color: #ffffff;
+}
+
+.challenger-form {
+  border: 2px solid #cccccc;
+  margin: 10px;
+  background-color: #ffffff;
+}
