@@ -83,8 +83,3 @@ function guessUpdate(event) {
 //   var clearButton = document.querySelector('.clear-game');
 //   Activate Buttons
 // }
-  
-  
-  
-
-
