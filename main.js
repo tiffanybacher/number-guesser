@@ -1,61 +1,43 @@
 // GLOBAL VARIABLES
 
-var minInput = document.querySelector("#min-range");
-var maxInput = document.querySelector("#max-range");
-var updateButton = document.querySelector(".range-update");
-var curMin = document.querySelector(".min-number");
-var curMax = document.querySelector(".max-number");
-
+var minInput = document.querySelector('#min-range');
+var maxInput = document.querySelector('#max-range');
+var updateButton = document.querySelector('.range-update');
+var curMin = document.querySelector('.min-number');
+var curMax = document.querySelector('.max-number');
+var nameOneInput = document.querySelector('#name-input-1');
+var nameTwoInput = document.querySelector('#name-input-2');
+var guessOneInput = document.querySelector('#guess-1');
+var guessTwoInput = document.querySelector('#guess-2');
+var submitGuessBtn = document.querySelector('#submit-guess-btn');
 
 // EVENT LISTENERS
 
-updateButton.addEventListener("click", setRange);
-
-// FUNCTIONS
-
-function setRange(event) {
-event.preventDefault();
-  var low = parseInt(minInput.value);
-  var high = parseInt(maxInput.value);
-
-  curMin.innerText = low;
-  curMax.innerText = high;
-  getTheNumber(low, high);
-  minInput.value = "";
-  maxInput.value = "";
-}
-
-
-function getTheNumber(low, high){
-  // var minRange = Math.ceil(min);
-  // var maxRange = Math.floor(max);
-  var ranNum = Math.floor(Math.random() * (high- low + 1) + low);
-  console.log(ranNum);
-  };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var submitGuessBtn = document.querySelector('#submit-guess-btn');
+updateButton.addEventListener('click', setRange);
 submitGuessBtn.addEventListener('click', nameUpdate);
 submitGuessBtn.addEventListener('click', guessUpdate);
 // submitGuessBtn.addEventListener('click', activateButton);
 
+// FUNCTIONS
+
+function setRange(event) {
+  event.preventDefault();
+  var low = parseInt(minInput.value);
+  var high = parseInt(maxInput.value);
+  curMin.innerText = low;
+  curMax.innerText = high;
+  getTheNumber(low, high);
+  minInput.value = '';
+  maxInput.value = '';
+}
+
+function getTheNumber(low, high) {
+  var ranNum = Math.floor(Math.random() * (high- low + 1) + low);
+  console.log(ranNum);
+  };
+
 function nameUpdate(event) {
   event.preventDefault();
-  var nameOneInput = document.querySelector('#name-input-1');
-  var nameTwoInput = document.querySelector('#name-input-2');
   var nameOne = nameOneInput.value;
   var nameTwo = nameTwoInput.value;
   var challengerOneText = document.querySelectorAll('.name-1');
@@ -70,8 +52,6 @@ function nameUpdate(event) {
 
 function guessUpdate(event) {
   event.preventDefault();
-  var guessOneInput = document.querySelector('#guess-1');
-  var guessTwoInput = document.querySelector('#guess-2');
   var guessOne = parseInt(guessOneInput.value);
   var guessTwo = parseInt(guessTwoInput.value);
   var guessOneDefault = document.querySelector('.current-guess-1');
@@ -79,13 +59,6 @@ function guessUpdate(event) {
   guessOneDefault.innerText = 'guessOne';
   guessTwoDefault.innerText = 'guessTwo';
 }
-
-
-// function activateButton {
-//   var resetButton = document.querySelector('.reset-game');
-//   var clearButton = document.querySelector('.clear-game');
-//   Activate Buttons
-// }
 
 // compare guessOne to randomNumber
 // if guessOne = randomNumber
@@ -104,6 +77,12 @@ function guessUpdate(event) {
 //  then replace .response-2 to 'that's too low'
 // else
 //  then replace .response-2 to 'that's too high'
+
+// function activateButton {
+//   var resetButton = document.querySelector('.reset-game');
+//   var clearButton = document.querySelector('.clear-game');
+//   Activate Buttons
+// }
   
   
   
