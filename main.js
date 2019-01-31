@@ -1,3 +1,50 @@
+// GLOBAL VARIABLES
+
+var minInput = document.querySelector("#min-range");
+var maxInput = document.querySelector("#max-range");
+var updateButton = document.querySelector(".range-update");
+var curMin = document.querySelector(".min-number");
+var curMax = document.querySelector(".max-number");
+
+
+// EVENT LISTENERS
+
+updateButton.addEventListener("click", setRange);
+
+// FUNCTIONS
+
+function setRange(event) {
+event.preventDefault();
+  var low = parseInt(minInput.value);
+  var high = parseInt(maxInput.value);
+
+  curMin.innerText = low;
+  curMax.innerText = high;
+  getTheNumber(low, high);
+  minInput.value = "";
+  maxInput.value = "";
+}
+
+
+function getTheNumber(low, high){
+  // var minRange = Math.ceil(min);
+  // var maxRange = Math.floor(max);
+  var ranNum = Math.floor(Math.random() * (high- low + 1) + low);
+  console.log(ranNum);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 var submitGuessBtn = document.querySelector('#submit-guess-btn');
