@@ -3,13 +3,11 @@
 var minInput = document.querySelector('#min-range');
 var maxInput = document.querySelector('#max-range');
 var updateButton = document.querySelector('.range-update');
-var curMin = document.querySelector('.min-number');
-var curMax = document.querySelector('.max-number');
 var nameOneInput = document.querySelector('#name-input-1');
 var nameTwoInput = document.querySelector('#name-input-2');
 var guessOneInput = document.querySelector('#guess-1');
 var guessTwoInput = document.querySelector('#guess-2');
-var submitGuessBtn = document.querySelector('#submit-guess-btn');
+var submitGuessBtn = document.querySelector('.submit-guess');
 
 // EVENT LISTENERS
 
@@ -24,6 +22,8 @@ function setRange(event) {
   event.preventDefault();
   var low = parseInt(minInput.value);
   var high = parseInt(maxInput.value);
+  var curMin = document.querySelector('.min-number');
+  var curMax = document.querySelector('.max-number');
   curMin.innerText = low;
   curMax.innerText = high;
   getTheNumber(low, high);
@@ -32,7 +32,7 @@ function setRange(event) {
 }
 
 function getTheNumber(low, high) {
-  var ranNum = Math.floor(Math.random() * (high- low + 1) + low);
+  var ranNum = Math.floor(Math.random() * (high - low + 1) + low);
   console.log(ranNum);
   };
 
@@ -43,10 +43,10 @@ function nameUpdate(event) {
   var challengerOneText = document.querySelectorAll('.name-1');
   var challengerTwoText = document.querySelectorAll('.name-2');
   for (var i = 0; i < challengerOneText.length; i++) { 
-    challengerOneText[i].innerText = 'nameOne';
+    challengerOneText[i].innerText = nameOne;
   }
   for (var i = 0; i < challengerTwoText.length; i++) {
-    challengerTwoText[i].innerText = 'nameTwo';
+    challengerTwoText[i].innerText = nameTwo;
   }
 }
 
@@ -56,8 +56,10 @@ function guessUpdate(event) {
   var guessTwo = parseInt(guessTwoInput.value);
   var guessOneDefault = document.querySelector('.current-guess-1');
   var guessTwoDefault = document.querySelector('.current-guess-2');
-  guessOneDefault.innerText = 'guessOne';
-  guessTwoDefault.innerText = 'guessTwo';
+  guessOneDefault.innerText = guessOne;
+  guessTwoDefault.innerText = guessTwo;
+  guessOneInput.value = '';
+  guessTwoInput.value = '';
 }
 
 // compare guessOne to randomNumber
