@@ -8,12 +8,18 @@ var nameTwoInput = document.querySelector('#name-input-2');
 var guessOneInput = document.querySelector('#guess-1');
 var guessTwoInput = document.querySelector('#guess-2');
 var submitGuessBtn = document.querySelector('.submit-guess');
+var clearButton = document.querySelector('.clear-game');
+var resetButton = document.querySelector('.reset-game');
+var challengerOneText = document.querySelectorAll('.name-1');
+var challengerTwoText = document.querySelectorAll('.name-2');
 
 var low;
 var high;
 var ranNum;
 var guessOne;
 var guessTwo;
+var nameOne;
+var nameTwo;
 
 // EVENT LISTENERS
 
@@ -22,11 +28,14 @@ submitGuessBtn.addEventListener('click', nameUpdate);
 submitGuessBtn.addEventListener('click', guessUpdate);
 submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
-// submitGuessBtn.addEventListener('click', activateButton);
+clearButton.addEventListener('click', clearGame);
+resetButton.addEventListener('click', resetGame);
+submitGuessBtn.addEventListener('click', activateButton);
+
 
 // FUNCTIONS
 
-getTheNumber(1, 100)
+getTheNumber(1, 100);
 
 function setRange(event) {
   event.preventDefault();
@@ -43,16 +52,13 @@ function setRange(event) {
 
 function getTheNumber(low, high) {
   ranNum = Math.floor(Math.random() * (high - low) + low);
-  console.log(ranNum);
   return ranNum;
   };
 
 function nameUpdate(event) {
   event.preventDefault();
-  var nameOne = nameOneInput.value;
-  var nameTwo = nameTwoInput.value;
-  var challengerOneText = document.querySelectorAll('.name-1');
-  var challengerTwoText = document.querySelectorAll('.name-2');
+  nameOne = nameOneInput.value;
+  nameTwo = nameTwoInput.value;
   for (var i = 0; i < challengerOneText.length; i++) { 
     challengerOneText[i].innerText = nameOne;
   }
@@ -73,18 +79,19 @@ function guessUpdate(event) {
   guessTwoInput.value = '';
 }
 
+function activateButton() {
+  clearButton.disabled = !clearButton.disabled;
+  resetButton.disabled = !resetButton.disabled;
+}
+
 function updateResponseOne() {
   var responseOne = document.querySelector('.response-1');
-  console.log(guessOne);
   if (guessOne === ranNum) {
     responseOne.innerText = "BOOM!";
-    console.log("BOOM!")
   } else if (guessOne < ranNum) {
     responseOne.innerText = "that's too low";
-    console.log("that's too low")
   } else if (guessOne > ranNum) {
     responseOne.innerText = "that's too high";
-    console.log("that's too high")
   } else {
     responseOne.innerText = "Try to guess!";
   }
@@ -104,9 +111,27 @@ function updateResponseTwo() {
   }
 }
 
+function clearGame(event) {
+  event.preventDefault();
+  nameOneInput.value = '';
+  nameTwoInput.value = '';
+  guessOneInput.value = '';
+  guessTwoInput.value = '';
+}
 
-// function activateButton {
-//   var resetButton = document.querySelector('.reset-game');
-//   var clearButton = document.querySelector('.clear-game');
-//   Activate Buttons
-// }
+
+function resetGame(event) {
+  event.preventDefault();
+  document.querySelector('.current-guess-1').innerText = 0;
+  document.querySelector('.current-guess-2').innerText = 0;
+  document.querySelector('.response-1').innerText = 'Try to guess!';
+  document.querySelector('.response-2').innerText = 'Try to guess!';
+  for (var i = 0; i < challengerOneText.length; i++) { 
+    challengerOneText[i].innerText = 'Challenger 1 Name';
+  }
+  for (var i = 0; i < challengerTwoText.length; i++) {
+    challengerTwoText[i].innerText = 'Challenger 2 Name';
+  }
+
+  getTheNumber(1, 100);
+}
