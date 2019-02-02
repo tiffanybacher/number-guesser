@@ -119,7 +119,6 @@ function clearGame(event) {
   guessTwoInput.value = '';
 }
 
-
 function resetGame(event) {
   event.preventDefault();
   document.querySelector('.current-guess-1').innerText = 0;
@@ -132,6 +131,5 @@ function resetGame(event) {
   for (var i = 0; i < challengerTwoText.length; i++) {
     challengerTwoText[i].innerText = 'Challenger 2 Name';
   }
-
   getTheNumber(1, 100);
 }
