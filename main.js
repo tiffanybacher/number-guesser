@@ -9,19 +9,29 @@ var guessOneInput = document.querySelector('#guess-1');
 var guessTwoInput = document.querySelector('#guess-2');
 var submitGuessBtn = document.querySelector('.submit-guess');
 
+var low;
+var high;
+var ranNum;
+var guessOne;
+var guessTwo;
+
 // EVENT LISTENERS
 
 updateButton.addEventListener('click', setRange);
 submitGuessBtn.addEventListener('click', nameUpdate);
 submitGuessBtn.addEventListener('click', guessUpdate);
+submitGuessBtn.addEventListener('click', updateResponseOne);
+submitGuessBtn.addEventListener('click', updateResponseTwo);
 // submitGuessBtn.addEventListener('click', activateButton);
 
 // FUNCTIONS
 
+getTheNumber(1, 100)
+
 function setRange(event) {
   event.preventDefault();
-  var low = parseInt(minInput.value);
-  var high = parseInt(maxInput.value);
+  low = parseInt(minInput.value);
+  high = parseInt(maxInput.value);
   var curMin = document.querySelector('.min-number');
   var curMax = document.querySelector('.max-number');
   curMin.innerText = low;
@@ -32,8 +42,9 @@ function setRange(event) {
 }
 
 function getTheNumber(low, high) {
-  var ranNum = Math.floor(Math.random() * (high - low + 1) + low);
+  ranNum = Math.floor(Math.random() * (high - low) + low);
   console.log(ranNum);
+  return ranNum;
   };
 
 function nameUpdate(event) {
@@ -52,8 +63,8 @@ function nameUpdate(event) {
 
 function guessUpdate(event) {
   event.preventDefault();
-  var guessOne = parseInt(guessOneInput.value);
-  var guessTwo = parseInt(guessTwoInput.value);
+  guessOne = parseInt(guessOneInput.value);
+  guessTwo = parseInt(guessTwoInput.value);
   var guessOneDefault = document.querySelector('.current-guess-1');
   var guessTwoDefault = document.querySelector('.current-guess-2');
   guessOneDefault.innerText = guessOne;
@@ -62,23 +73,37 @@ function guessUpdate(event) {
   guessTwoInput.value = '';
 }
 
-// compare guessOne to randomNumber
-// if guessOne = randomNumber
-//  then replace .response-1 with 'BOOM'
-//  and create new .card
-// else if guessOne < randomNumber
-//  then replace .response-1 to 'that's too low'
-// else
-//  then replace .response-1 to 'that's too high'
+function updateResponseOne() {
+  var responseOne = document.querySelector('.response-1');
+  console.log(guessOne);
+  if (guessOne === ranNum) {
+    responseOne.innerText = "BOOM!";
+    console.log("BOOM!")
+  } else if (guessOne < ranNum) {
+    responseOne.innerText = "that's too low";
+    console.log("that's too low")
+  } else if (guessOne > ranNum) {
+    responseOne.innerText = "that's too high";
+    console.log("that's too high")
+  } else {
+    responseOne.innerText = "Try to guess!";
+  }
+}
 
-// compare guessTwo to randomNumber
-// if guessTwo = randomNumber
-//  then replace .response-2 with 'BOOM'
-//  and create new .card
-// else if guessTwo < randomNumber
-//  then replace .response-2 to 'that's too low'
-// else
-//  then replace .response-2 to 'that's too high'
+function updateResponseTwo() {
+  var responseTwo = document.querySelector('.response-2');
+  if (guessTwo === ranNum) {
+    responseTwo.innerText = "BOOM!";
+  }
+    else if (guessTwo < ranNum) {
+    responseTwo.innerText = "that's too low";
+  } else if (guessTwo > ranNum) {
+    responseTwo.innerText = "that's too high";
+  } else {
+    responseTwo.innerText = "Try to guess!";
+  }
+}
+
 
 // function activateButton {
 //   var resetButton = document.querySelector('.reset-game');
