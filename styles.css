@@ -132,6 +132,13 @@ label {
   margin: 5px 0px 10px 0px;
 }
 
+
+.error {
+  width: 35px;
+  display: none;
+  padding-top: 32px;
+}
+
 .num-input {
   width: 165px;
 }

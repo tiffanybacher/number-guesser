@@ -12,6 +12,7 @@ var clearButton = document.querySelector('.clear-game');
 var resetButton = document.querySelector('.reset-game');
 var challengerOneText = document.querySelectorAll('.name-1');
 var challengerTwoText = document.querySelectorAll('.name-2');
+var errMessage = document.querySelector('.error');
 
 var low;
 var high;
@@ -39,6 +40,11 @@ getTheNumber(1, 100);
 
 function setRange(event) {
   event.preventDefault();
+  if (minInput.value > maxInput.value) {
+    errMessage.style.display = 'inline';
+  } else {
+    errMessage.style.display = 'none';
+  }
   low = parseInt(minInput.value);
   high = parseInt(maxInput.value);
   var curMin = document.querySelector('.min-number');
