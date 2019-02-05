@@ -44,11 +44,13 @@ function setRange(event) {
   high = parseInt(maxInput.value);
   if (low > high) {
     errMessage.style.display = 'inline';
+    alert("Please enter a valid range");
   } else {
     errMessage.style.display = 'none';
   };
   if (minInput.value === '' || maxInput.value === '') {
     errMessage.style.display = 'inline';
+    alert("Please enter a valid range");
   }
   var curMin = document.querySelector('.min-number');
   var curMax = document.querySelector('.max-number');
