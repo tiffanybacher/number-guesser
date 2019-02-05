@@ -40,13 +40,16 @@ getTheNumber(1, 100);
 
 function setRange(event) {
   event.preventDefault();
-  if (minInput.value > maxInput.value) {
+  low = parseInt(minInput.value);
+  high = parseInt(maxInput.value);
+  if (low > high) {
     errMessage.style.display = 'inline';
   } else {
     errMessage.style.display = 'none';
+  };
+  if (minInput.value === '' || maxInput.value === '') {
+    errMessage.style.display = 'inline';
   }
-  low = parseInt(minInput.value);
-  high = parseInt(maxInput.value);
   var curMin = document.querySelector('.min-number');
   var curMax = document.querySelector('.max-number');
   curMin.innerText = low;
