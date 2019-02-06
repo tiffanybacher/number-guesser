@@ -20,6 +20,7 @@ var responseOne = document.querySelector('.response-1');
 var responseTwo = document.querySelector('.response-2');
 var errMessage = document.querySelector('.error');
 var winName = document.querySelector('.winner-name');
+var guesses = document.querySelector('.num-guesses');
 var deleteBut = document.querySelector('.delete-btn');
 
 var low = 1;
@@ -29,6 +30,7 @@ var guessOne;
 var guessTwo;
 var nameOne;
 var nameTwo;
+var guessCount = 0;
 
 // EVENT LISTENERS
 
@@ -39,6 +41,7 @@ submitGuessBtn.addEventListener('click', guessCompare);
 submitGuessBtn.addEventListener('click', guessUpdate);
 submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
+// submitGuessBtn.addEventListener('click', updateGuessCount);
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
 deleteBut.addEventListener('click', removeCard);
@@ -116,6 +119,9 @@ function nameUpdate(event) {
 function getGuess() {
   guessOne = parseInt(guessOneInput.value);
   guessTwo = parseInt(guessTwoInput.value);
+  guessCount += 2;
+  console.log(guessCount);
+  guesses.innerText = guessCount;
 }
 
 function guessUpdate() {
@@ -123,7 +129,7 @@ function guessUpdate() {
   guessTwoDefault.innerText = guessTwo;
   clearButton.disabled = false;
   resetButton.disabled = false;
-  submitGuessBtn.disabled = true;
+  // submitGuessBtn.disabled = true;
 }
 
 function guessCompare() {
@@ -214,6 +220,7 @@ function resetGame() {
   for (var i = 0; i < challengerTwoText.length; i++) {
     challengerTwoText[i].innerText = 'Challenger 2 Name';
   }
+  guesses.innerText = 0;
   getTheNumber(1, 100);
 }
 
