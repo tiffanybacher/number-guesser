@@ -34,16 +34,14 @@ var nameTwo;
 
 updateButton.addEventListener('click', setRange);
 submitGuessBtn.addEventListener('click', nameUpdate);
-submitGuessBtn.addEventListener('click', guessUpdate);
+submitGuessBtn.addEventListener('click', getGuess);
 submitGuessBtn.addEventListener('click', guessCompare);
+submitGuessBtn.addEventListener('click', guessUpdate);
 submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
-
 deleteBut.addEventListener('click', removeCard);
-
-
 
 // FUNCTIONS
 
@@ -87,13 +85,10 @@ function setRange(event) {
   };
   if (low < high) {
     enableChallengerField();
-    curMin.innerText = low;
-    curMax.innerText = high;
     minInput.value = '';
     maxInput.value = '';
   };
   getTheNumber(low, high);
-  console.log(ranNum);
 }
 
 function getTheNumber(low, high) {
@@ -106,25 +101,29 @@ function nameUpdate(event) {
   event.preventDefault();
   nameOne = nameOneInput.value;
   nameTwo = nameTwoInput.value;
-  if (nameOneInput.value === '' || nameTwoInput.value === '') {
+  if (nameOne === '' || nameTwo === '') {
     alert("Please enter a valid name");
-  }
-  for (var i = 0; i < challengerOneText.length; i++) { 
-    challengerOneText[i].innerText = nameOne;
-  }
-  for (var i = 0; i < challengerTwoText.length; i++) {
-    challengerTwoText[i].innerText = nameTwo;
+  } else {
+    for (var i = 0; i < challengerOneText.length; i++) { 
+      challengerOneText[i].innerText = nameOne;
+    } 
+    for (var i = 0; i < challengerTwoText.length; i++) {
+      challengerTwoText[i].innerText = nameTwo;
+    }
   }
 }
 
-function guessUpdate(event) {
-  event.preventDefault();
+function getGuess() {
   guessOne = parseInt(guessOneInput.value);
   guessTwo = parseInt(guessTwoInput.value);
+}
+
+function guessUpdate() {
   guessOneDefault.innerText = guessOne;
   guessTwoDefault.innerText = guessTwo;
   clearButton.disabled = false;
   resetButton.disabled = false;
+  submitGuessBtn.disabled = true;
 }
 
 function guessCompare() {
@@ -138,14 +137,17 @@ function guessCompare() {
     alert("Please enter a valid number");
   }
   if (isNaN(guessTwo) === true) {
-     alert("Please enter a valid number");
+    alert("Please enter a valid number");
   }
-  console.log("testing")
 }
 
 function updateResponseOne() {
   if (guessOne === ranNum) {
     responseOne.innerText = "BOOM!";
+    winName.innerText = nameOne;
+    increaseRange();
+    getTheNumber(low, high);
+    clearGame();
   } else if (guessOne < ranNum) {
     responseOne.innerText = "that's too low";
   } else if (guessOne > ranNum) {
@@ -153,15 +155,15 @@ function updateResponseOne() {
   } else {
     responseOne.innerText = "Try to guess!";
   }
-  if (guessOne === ranNum) {
-    winName.innerText = nameOne;
-  }
 }
-
 
 function updateResponseTwo() {
   if (guessTwo === ranNum) {
     responseTwo.innerText = "BOOM!";
+    winName.innerText = nameTwo;
+    increaseRange();
+    getTheNumber(low, high);
+    clearGame();
   }
     else if (guessTwo < ranNum) {
     responseTwo.innerText = "that's too low";
@@ -170,20 +172,28 @@ function updateResponseTwo() {
   } else {
     responseTwo.innerText = "Try to guess!";
   }
-    if (guessTwo === ranNum) {
-    winName.innerText = nameTwo;
-  }
 }
 
-function clearGame(event) {
-  event.preventDefault();
+function increaseRange() {
+  low -= 10;
+  high += 10;
+  if (low < 0) {
+    low = 1;
+    curMin.innerText = 1;
+  } else {
+    curMin.innerText = low;
+  }
+  curMax.innerText = high;
+}
+
+function clearGame() {
   guessOneInput.value = '';
   guessTwoInput.value = '';
   submitGuessBtn.disabled = false;
+  clearButton.disabled = true;
 }
 
-function resetGame(event) {
-  event.preventDefault();
+function resetGame() {
   minInput.value = '';
   maxInput.value = '';
   curMin.innerText = 1;
