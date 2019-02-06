@@ -134,8 +134,11 @@ function guessCompare() {
   if (guessTwo < low || guessTwo > high) {
     alert("Please enter a guess within the set range");
   }
-  if (isNaN(guessOne) === true || isNan(guessTwo) === true) {
+  if (isNaN(guessOne) === true) {
     alert("Please enter a valid number");
+  }
+  if (isNaN(guessTwo) === true) {
+     alert("Please enter a valid number");
   }
 }
 
