@@ -140,6 +140,7 @@ function guessCompare() {
   if (isNaN(guessTwo) === true) {
      alert("Please enter a valid number");
   }
+  console.log("testing")
 }
 
 function updateResponseOne() {
