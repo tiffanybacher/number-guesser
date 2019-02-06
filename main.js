@@ -19,9 +19,10 @@ var guessTwoDefault = document.querySelector('.current-guess-2');
 var responseOne = document.querySelector('.response-1');
 var responseTwo = document.querySelector('.response-2');
 var errMessage = document.querySelector('.error');
+var cardBookmark = document.querySelector('.winner-cards');
+var card = document.querySelector('.card');
 var winName = document.querySelector('.winner-name');
 var guesses = document.querySelector('.num-guesses');
-var deleteBut = document.querySelector('.delete-btn');
 
 var low = 1;
 var high = 100;
@@ -31,6 +32,7 @@ var guessTwo;
 var nameOne;
 var nameTwo;
 var guessCount = 0;
+var numCard = 0;
 
 // EVENT LISTENERS
 
@@ -41,10 +43,11 @@ submitGuessBtn.addEventListener('click', guessCompare);
 submitGuessBtn.addEventListener('click', guessUpdate);
 submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
-// submitGuessBtn.addEventListener('click', updateGuessCount);
+// submitGuessBtn.addEventListener('click', addCard);
+
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
-deleteBut.addEventListener('click', removeCard);
+
 
 // FUNCTIONS
 
@@ -121,7 +124,7 @@ function getGuess() {
   guessTwo = parseInt(guessTwoInput.value);
   guessCount += 2;
   console.log(guessCount);
-  guesses.innerText = guessCount;
+  
 }
 
 function guessUpdate() {
@@ -150,10 +153,10 @@ function guessCompare() {
 function updateResponseOne() {
   if (guessOne === ranNum) {
     responseOne.innerText = "BOOM!";
-    winName.innerText = nameOne;
     increaseRange();
     getTheNumber(low, high);
-    clearGame();
+    winName = nameOne;
+    makeCard(nameOne, nameTwo, winName, guessCount);
   } else if (guessOne < ranNum) {
     responseOne.innerText = "that's too low";
   } else if (guessOne > ranNum) {
@@ -166,7 +169,6 @@ function updateResponseOne() {
 function updateResponseTwo() {
   if (guessTwo === ranNum) {
     responseTwo.innerText = "BOOM!";
-    winName.innerText = nameTwo;
     increaseRange();
     getTheNumber(low, high);
     clearGame();
@@ -220,12 +222,27 @@ function resetGame() {
   for (var i = 0; i < challengerTwoText.length; i++) {
     challengerTwoText[i].innerText = 'Challenger 2 Name';
   }
-  guesses.innerText = 0;
   getTheNumber(1, 100);
 }
 
-function removeCard(event) {
+
+function makeCard(nameOne, nameTwo, winName, guessCount) {
+  numCard ++;
+  cardBookmark.innerHTML += 
+  `<article class="card">
+    <h4 class="card-name name-1">${nameOne}</h4><h5> vs. </h5><h4 class="card-name name-2">${nameTwo}</h4>
+    <h2 class="winner-name">${winName}</h2>
+    <h2>WINNER</h2>
+    <h5 class="num-guesses">${guessCount}</h5><h5> GUESSES</h5>
+    <button class="delete-btn">X</button>
+    </article>`
+}
+var deleteBut = document.querySelector('.delete-btn');
+
+cardBookmark.addEventListener('click', removeCard);
+
+function removeCard() {
   if (event.target.className === "delete-btn") {
-    event.target.parentElement.remove()
+    event.target.parentElement.parentElement.remove()
   }
 }
