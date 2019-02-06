@@ -13,6 +13,8 @@ var resetButton = document.querySelector('.reset-game');
 var challengerOneText = document.querySelectorAll('.name-1');
 var challengerTwoText = document.querySelectorAll('.name-2');
 var errMessage = document.querySelector('.error');
+var winName = document.querySelector('.winner-name');
+var deleteBut = document.querySelector('.delete-btn');
 
 var low;
 var high;
@@ -32,6 +34,7 @@ submitGuessBtn.addEventListener('click', updateResponseTwo);
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
 submitGuessBtn.addEventListener('click', activateButton);
+deleteBut.addEventListener('click', removeCard);
 
 
 // FUNCTIONS
@@ -63,6 +66,7 @@ function setRange(event) {
 
 function getTheNumber(low, high) {
   ranNum = Math.floor(Math.random() * (high - low) + low);
+  console.log(ranNum);
   return ranNum;
   };
 
@@ -96,6 +100,7 @@ function activateButton() {
 }
 
 function updateResponseOne() {
+  var myNode = document.querySelector('#name-input-1')
   var responseOne = document.querySelector('.response-1');
   if (guessOne === ranNum) {
     responseOne.innerText = "BOOM!";
@@ -106,9 +111,14 @@ function updateResponseOne() {
   } else {
     responseOne.innerText = "Try to guess!";
   }
+  if (guessOne === ranNum) {
+    winName.innerText = myNode.value;
+  }
 }
 
+
 function updateResponseTwo() {
+  var myNode = document.querySelector('#name-input-2')
   var responseTwo = document.querySelector('.response-2');
   if (guessTwo === ranNum) {
     responseTwo.innerText = "BOOM!";
@@ -119,6 +129,9 @@ function updateResponseTwo() {
     responseTwo.innerText = "that's too high";
   } else {
     responseTwo.innerText = "Try to guess!";
+  }
+    if (guessTwo === ranNum) {
+    winName.innerText = myNode.value;
   }
 }
 
@@ -143,4 +156,10 @@ function resetGame(event) {
     challengerTwoText[i].innerText = 'Challenger 2 Name';
   }
   getTheNumber(1, 100);
+}
+
+function removeCard(event) {
+  if (event.target.className === "delete-btn") {
+    event.target.parentElement.remove()
+  }
 }
