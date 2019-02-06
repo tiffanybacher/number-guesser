@@ -3,6 +3,8 @@
 var minInput = document.querySelector('#min-range');
 var maxInput = document.querySelector('#max-range');
 var updateButton = document.querySelector('.range-update');
+var curMin = document.querySelector('.min-number');
+var curMax = document.querySelector('.max-number');
 var nameOneInput = document.querySelector('#name-input-1');
 var nameTwoInput = document.querySelector('#name-input-2');
 var guessOneInput = document.querySelector('#guess-1');
@@ -12,10 +14,14 @@ var clearButton = document.querySelector('.clear-game');
 var resetButton = document.querySelector('.reset-game');
 var challengerOneText = document.querySelectorAll('.name-1');
 var challengerTwoText = document.querySelectorAll('.name-2');
+var guessOneDefault = document.querySelector('.current-guess-1');
+var guessTwoDefault = document.querySelector('.current-guess-2');
+var responseOne = document.querySelector('.response-1');
+var responseTwo = document.querySelector('.response-2');
 var errMessage = document.querySelector('.error');
 
-var low;
-var high;
+var low = 1;
+var high = 100;
 var ranNum;
 var guessOne;
 var guessTwo;
@@ -27,49 +33,77 @@ var nameTwo;
 updateButton.addEventListener('click', setRange);
 submitGuessBtn.addEventListener('click', nameUpdate);
 submitGuessBtn.addEventListener('click', guessUpdate);
+submitGuessBtn.addEventListener('click', guessCompare);
 submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
-submitGuessBtn.addEventListener('click', activateButton);
+
 
 
 // FUNCTIONS
 
 getTheNumber(1, 100);
 
+function disableChallengerField() {
+  curMin.innerText = 0;
+  curMax.innerText = 0;
+  submitGuessBtn.disabled = true;
+  nameOneInput.disabled = true;
+  nameTwoInput.disabled = true;
+  guessOneInput.disabled = true;
+  guessTwoInput.disabled = true;
+}
+
+function enableChallengerField() {
+  curMin.innerText = low;
+  curMax.innerText = high;
+  submitGuessBtn.disabled = false;
+  nameOneInput.disabled = false;
+  nameTwoInput.disabled = false;
+  guessOneInput.disabled = false;
+  guessTwoInput.disabled = false;
+}
+
 function setRange(event) {
   event.preventDefault();
   low = parseInt(minInput.value);
   high = parseInt(maxInput.value);
   if (low > high) {
+    disableChallengerField();
     errMessage.style.display = 'inline';
     alert("Please enter a valid range");
   } else {
     errMessage.style.display = 'none';
   };
   if (minInput.value === '' || maxInput.value === '') {
+    disableChallengerField();
     errMessage.style.display = 'inline';
     alert("Please enter a valid range");
-  }
-  var curMin = document.querySelector('.min-number');
-  var curMax = document.querySelector('.max-number');
-  curMin.innerText = low;
-  curMax.innerText = high;
+  };
+  if (low < high) {
+    enableChallengerField();
+    curMin.innerText = low;
+    curMax.innerText = high;
+    minInput.value = '';
+    maxInput.value = '';
+  };
   getTheNumber(low, high);
-  minInput.value = '';
-  maxInput.value = '';
+  console.log(ranNum);
 }
 
 function getTheNumber(low, high) {
   ranNum = Math.floor(Math.random() * (high - low) + low);
   return ranNum;
-  };
+}
 
 function nameUpdate(event) {
   event.preventDefault();
   nameOne = nameOneInput.value;
   nameTwo = nameTwoInput.value;
+  if (nameOneInput.value === '' || nameTwoInput.value === '') {
+    alert("Please enter a valid name");
+  }
   for (var i = 0; i < challengerOneText.length; i++) { 
     challengerOneText[i].innerText = nameOne;
   }
@@ -82,21 +116,25 @@ function guessUpdate(event) {
   event.preventDefault();
   guessOne = parseInt(guessOneInput.value);
   guessTwo = parseInt(guessTwoInput.value);
-  var guessOneDefault = document.querySelector('.current-guess-1');
-  var guessTwoDefault = document.querySelector('.current-guess-2');
   guessOneDefault.innerText = guessOne;
   guessTwoDefault.innerText = guessTwo;
-  guessOneInput.value = '';
-  guessTwoInput.value = '';
+  clearButton.disabled = false;
+  resetButton.disabled = false;
 }
 
-function activateButton() {
-  clearButton.disabled = !clearButton.disabled;
-  resetButton.disabled = !resetButton.disabled;
+function guessCompare() {
+  if (guessOne < low || guessOne > high) {
+    alert("Please enter a guess within the set range");
+  }
+  if (guessTwo < low || guessTwo > high) {
+    alert("Please enter a guess within the set range");
+  }
+  if (isNaN(guessOne) === true || isNan(guessTwo) === true) {
+    alert("Please enter a valid number");
+  }
 }
 
 function updateResponseOne() {
-  var responseOne = document.querySelector('.response-1');
   if (guessOne === ranNum) {
     responseOne.innerText = "BOOM!";
   } else if (guessOne < ranNum) {
@@ -109,7 +147,6 @@ function updateResponseOne() {
 }
 
 function updateResponseTwo() {
-  var responseTwo = document.querySelector('.response-2');
   if (guessTwo === ranNum) {
     responseTwo.innerText = "BOOM!";
   }
@@ -124,18 +161,27 @@ function updateResponseTwo() {
 
 function clearGame(event) {
   event.preventDefault();
-  nameOneInput.value = '';
-  nameTwoInput.value = '';
   guessOneInput.value = '';
   guessTwoInput.value = '';
+  submitGuessBtn.disabled = false;
 }
 
 function resetGame(event) {
   event.preventDefault();
-  document.querySelector('.current-guess-1').innerText = 0;
-  document.querySelector('.current-guess-2').innerText = 0;
-  document.querySelector('.response-1').innerText = 'Try to guess!';
-  document.querySelector('.response-2').innerText = 'Try to guess!';
+  minInput.value = '';
+  maxInput.value = '';
+  curMin.innerText = 1;
+  curMax.innerText = 100;
+  nameOneInput.value = '';
+  nameTwoInput.value = '';
+  guessOneInput.value = '';
+  guessTwoInput.value = '';
+  clearButton.disabled = true;
+  resetButton.disabled = true;
+  guessOneDefault.innerText = 0;
+  guessTwoDefault.innerText = 0;
+  responseOne.innerText = 'Try to guess!';
+  responseTwo.innerText = 'Try to guess!';
   for (var i = 0; i < challengerOneText.length; i++) { 
     challengerOneText[i].innerText = 'Challenger 1 Name';
   }
