@@ -19,6 +19,8 @@ var guessTwoDefault = document.querySelector('.current-guess-2');
 var responseOne = document.querySelector('.response-1');
 var responseTwo = document.querySelector('.response-2');
 var errMessage = document.querySelector('.error');
+var winName = document.querySelector('.winner-name');
+var deleteBut = document.querySelector('.delete-btn');
 
 var low = 1;
 var high = 100;
@@ -38,6 +40,8 @@ submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
+
+deleteBut.addEventListener('click', removeCard);
 
 
 
@@ -94,6 +98,7 @@ function setRange(event) {
 
 function getTheNumber(low, high) {
   ranNum = Math.floor(Math.random() * (high - low) + low);
+  console.log(ranNum);
   return ranNum;
 }
 
@@ -144,7 +149,11 @@ function updateResponseOne() {
   } else {
     responseOne.innerText = "Try to guess!";
   }
+  if (guessOne === ranNum) {
+    winName.innerText = nameOne;
+  }
 }
+
 
 function updateResponseTwo() {
   if (guessTwo === ranNum) {
@@ -156,6 +165,9 @@ function updateResponseTwo() {
     responseTwo.innerText = "that's too high";
   } else {
     responseTwo.innerText = "Try to guess!";
+  }
+    if (guessTwo === ranNum) {
+    winName.innerText = nameTwo;
   }
 }
 
@@ -189,4 +201,10 @@ function resetGame(event) {
     challengerTwoText[i].innerText = 'Challenger 2 Name';
   }
   getTheNumber(1, 100);
+}
+
+function removeCard(event) {
+  if (event.target.className === "delete-btn") {
+    event.target.parentElement.remove()
+  }
 }
