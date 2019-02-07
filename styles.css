@@ -90,10 +90,11 @@ main {
   width: 50%;
   background-color: #f7f7f7;
   padding: 10px;
-  min-width: 600px;
+  min-width: 568px;
+  max-width: 768px;
 }
 
-.winner-cards {
+.winner-side {
   background-color: #d1d2d4;
   width: 50%;
   padding: 10px;
@@ -120,11 +121,11 @@ label {
 }
 
 .num-input {
-  width: 165px;
+  width: 150px;
 }
 
 .name-input {
-  width: 325px;
+  width: 300px;
 }
 
 .btn {
@@ -188,8 +189,8 @@ label {
   padding: 10px;
 }
 
-.submit-guess, .reset-game, .clear-game {
-  margin: 25px 25px 0px 0px;
+.submit-guess, .reset-game {
+  margin: 25px 15px 0px 0px;
 }
 
 .clear-game {
@@ -224,7 +225,16 @@ label {
   border: 2px solid #b2b2b2;
 }
 
-@media screen and (max-width: 950px) {
+.delete-all-btn {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+
+  body {
+    margin: auto;
+    min-width: 568px;
+  }
 
   main {
     display: block;
@@ -232,5 +242,10 @@ label {
 
   .player-input {
     width: 100%;
+  }
+
+  .winner-side {
+    width: 100%;
+    min-height: 50px;
   }
 
