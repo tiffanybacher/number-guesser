@@ -13,23 +13,21 @@ This is the third project assigned to the students of Turing Front End Mod-1. We
 ### Site must be functional.
 
 # Example Code
-
-function updateResponseOne() {
-  if (guessOne === ranNum) {
-    responseOne.innerText = "BOOM!";
+  function updateResponseOne() {
+    if (guessOne === ranNum) {
+    responseOne.innerText = "BOOM!;
     increaseRange();
     getTheNumber(low, high);
     makeCard();
     clearGame();
   } else if (guessOne < ranNum) {
-    responseOne.innerText = "that's too low";
+  responseOne.innerText = "that's too low";
   } else if (guessOne > ranNum) {
-    responseOne.innerText = "that's too high";
+  responseOne.innerText = 'that's too high";
   } else {
     responseOne.innerText = "Try to guess!";
-  }
 }
-
+  
 
 function setRange(event) {
   event.preventDefault();
