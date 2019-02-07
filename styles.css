@@ -21,7 +21,9 @@ h1 {
 }
 
 h2 {
-
+  font-size: 2.3em;
+  font-weight: 300;
+  margin: 0px;
 }
 
 h3 {
@@ -217,12 +219,20 @@ label {
 
 /* winner card styles */
 
+.delete-all-btn {
+  display: none;
+}
+
 .card {
   border: 2px solid #e5e5e5;
   background-color: #ffffff;
   margin: 10px 25px;
   padding: 15px;
   border: 2px solid #b2b2b2;
+}
+
+.winner-name {
+  font-weight: 800;
 }
 
 @media screen and (max-width: 768px) {

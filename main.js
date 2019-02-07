@@ -23,7 +23,7 @@ var cardBookmark = document.querySelector('.winner-cards');
 var winnerSide = document.querySelector('.winner-side');
 var card = document.querySelector('.card');
 var winName = document.querySelector('.winner-name');
-var guesses = document.querySelector('.num-guesses');
+var removeAllBtn = document.querySelector('.delete-all-btn');
 
 var low = 1;
 var high = 100;
@@ -33,14 +33,15 @@ var nameTwo;
 var guessOne;
 var guessTwo;
 var guessCount = 0;
+var winName;
 
 // EVENT LISTENERS
 
 updateButton.addEventListener('click', setRange);
-submitGuessBtn.addEventListener('click', updateName);
-submitGuessBtn.addEventListener('click', getGuess);
-submitGuessBtn.addEventListener('click', compareGuessOne);
-submitGuessBtn.addEventListener('click', compareGuessTwo);
+submitGuessBtn.addEventListener('click', updateNames);
+submitGuessBtn.addEventListener('click', getGuesses);
+submitGuessBtn.addEventListener('click', updateGuessOne);
+submitGuessBtn.addEventListener('click', updateGuessTwo);
 submitGuessBtn.addEventListener('click', updateResponseOne);
 submitGuessBtn.addEventListener('click', updateResponseTwo);
 clearButton.addEventListener('click', clearGame);
@@ -48,18 +49,30 @@ resetButton.addEventListener('click', resetGame);
 cardBookmark.addEventListener('click', removeCard);
 winnerSide.addEventListener('click', removeAllCards);
 
+
 // FUNCTIONS
+
+setDefaultRange();
+
+function setDefaultRange() {
+  low = 1;
+  high = 100;
+  curMinText.innerText = 1;
+  curMaxText.innerText = 100;
+  getTheNumber(1, 100);
+}
 
 function getTheNumber(low, high) {
   ranNum = Math.floor(Math.random() * (high - low) + low);
   console.log(ranNum);
 }
 
-getTheNumber(1, 100);
-
 function setRange(event) {
   event.preventDefault();
   low = parseInt(minInput.value);
+  if (low <= 0) {
+    low = 1;
+  }
   high = parseInt(maxInput.value);
   if (low > high) {
     disableChallengerField();
@@ -105,7 +118,7 @@ function clearRangeInputs() {
   maxInput.value = '';
 }
 
-function updateName() {
+function updateNames() {
   nameOne = nameOneInput.value || 'Challenger 1';
   nameTwo = nameTwoInput.value || 'Challenger 2';
   if (nameOne === '' || nameTwo === '') {
@@ -128,15 +141,19 @@ function clearNameInputs() {
   nameTwoInput.value = '';
 }
 
-function getGuess() {
+function getGuesses() {
   guessOne = parseInt(guessOneInput.value);
   guessTwo = parseInt(guessTwoInput.value);
   guessCount += 2;
-  clearButton.disabled = false;
-  resetButton.disabled = false;
+  activateButtons();
 }
 
-function compareGuessOne() {
+function activateButtons() {
+  resetButton.disabled = false;
+  clearButton.disabled = false;
+}
+
+function updateGuessOne() {
 if (guessOne < low || guessOne > high) {
     alert("Please enter a guess within the set range");
   } else if (isNaN(guessOne) === true) {
@@ -146,7 +163,7 @@ if (guessOne < low || guessOne > high) {
   }
 }
 
-function compareGuessTwo() {
+function updateGuessTwo() {
   if (guessTwo < low || guessTwo > high) {
     alert("Please enter a guess within the set range");
   } else if (isNaN(guessTwo) === true) {
@@ -159,10 +176,8 @@ function compareGuessTwo() {
 function updateResponseOne() {
   if (guessOne === ranNum) {
     responseOne.innerText = "BOOM!";
-    increaseRange();
-    getTheNumber(low, high);
-    makeCard();
-    clearGame();
+    winName = nameOne;
+    chooseWinner();
   } else if (guessOne < ranNum) {
     responseOne.innerText = "that's too low";
   } else if (guessOne > ranNum) {
@@ -175,10 +190,8 @@ function updateResponseOne() {
 function updateResponseTwo() {
   if (guessTwo === ranNum) {
     responseTwo.innerText = "BOOM!";
-    increaseRange();
-    getTheNumber(low, high);
-    makeCard();
-    clearGame();
+    winName = nameTwo;
+    chooseWinner();
    }
     else if (guessTwo < ranNum) {
     responseTwo.innerText = "that's too low";
@@ -189,10 +202,17 @@ function updateResponseTwo() {
   }
 }
 
+function chooseWinner() {
+    increaseRange();
+    getTheNumber(low, high);
+    makeCard();
+    clearGame();
+}
+
 function increaseRange() {
   low -= 10;
   high += 10;
-  if (low < 0) {
+  if (low <= 0) {
     low = 1;
     curMinText.innerText = 1;
   } else {
@@ -228,38 +248,21 @@ function setDefaultText() {
   }
 }
 
-function setDefaultRange() {
-  low = 1;
-  high = 100;
-  curMinText.innerText = 1;
-  curMaxText.innerText = 100;
-  getTheNumber(1, 100);
-}
-
 function disableButtons() {
   clearButton.disabled = true;
   resetButton.disabled = true;
 }
 
 function makeCard() {
-  winName = nameOne;
-  winName = nameTwo;
-  makeButton();
+  removeAllBtn.style.display = 'inline';
   cardBookmark.innerHTML += 
    `<article class="card">
-    <h4 class="card-name name-1">${nameOne}</h4><h5> vs. </h5><h4 class="card-name name-2">${nameTwo}</h4>
-    <h2 class="winner-name">${winName}</h2>
+    <h4 class="card-name name-1">${nameOne.toUpperCase()}</h4><h5> vs. </h5><h4 class="card-name name-2">${nameTwo.toUpperCase()}</h4>
+    <h2 class="winner-name">${winName.toUpperCase()}</h2>
     <h2>WINNER</h2>
     <h5 class="num-guesses">${guessCount}</h5><h5> GUESSES</h5>
     <button class="delete-btn">X</button>
     </article>`;
-}
-
-function makeButton() {
-  var removeAllBtn = document.createElement('button');
-  removeAllBtn.className = 'delete-all-btn';
-  removeAllBtn.textContent = 'Remove All Cards';
-  cardBookmark.appendChild(removeAllBtn);
 }
 
 function removeCard() {
@@ -270,25 +273,7 @@ function removeCard() {
 
 function removeAllCards() {
   if (event.target.className === 'delete-all-btn') {
-    event.target.parentElement.remove();
+    cardBookmark.innerHTML = ``;
+    removeAllBtn.style.display = 'none';
   }
 }
-
-// still working out how to remove all cards without removing whole containing section
-
-// var deleteAllBtn = document.querySelector('.delete-all-btn');
-// deleteAllBtn.addEventListener('click', removeAllCards);
-
-// function removeAllCards() {
-//   var card = document.querySelector('.card');
-//   card.remove();
-// }
-
-// possibly create a new div when a card is created?
-
-// function makeDiv() {
-//   var cardBookmark = document.createElement('div');
-//   cardBookmark.className = 'winner-cards';
-//   cardBookmark.textContent = '';
-//   winnerSide.appendChild(cardBookmark);
-// }
