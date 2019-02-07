@@ -4,17 +4,15 @@ This is the third project assigned to the students of Turing Front End Mod-1. We
 
 # Goals
 
-## Starting range of numbers is between 1 - 100, with the ability for the user to add a custom range.
-## A random number is generated as the winning number.
-## Two players are able to enter numbers as a guess.
-## Buttons available for clearing input fields, resetting game, and displaying error messages.
-## Return on the guess should indicate whether the guess was too high, too low, or correct.
-## Display the final results of each match in UI.
-## Site must be functional.
+### Starting range of numbers is between 1 - 100, with the ability for the user to add a custom range.
+### A random number is generated as the winning number.
+### Two players are able to enter numbers as a guess.
+### Buttons available for clearing input fields, resetting game, and displaying error messages.
+### Return on the guess should indicate whether the guess was too high, too low, or correct.
+### Display the final results of each match in UI.
+### Site must be functional.
 
 # Example Code
-
-
 
 function updateResponseOne() {
   if (guessOne === ranNum) {
