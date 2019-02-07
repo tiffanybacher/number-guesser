@@ -157,6 +157,7 @@ function updateResponseOne() {
     getTheNumber(low, high);
     winName = nameOne;
     makeCard(nameOne, nameTwo, winName, guessCount);
+    clearGame();
   } else if (guessOne < ranNum) {
     responseOne.innerText = "that's too low";
   } else if (guessOne > ranNum) {
@@ -171,8 +172,10 @@ function updateResponseTwo() {
     responseTwo.innerText = "BOOM!";
     increaseRange();
     getTheNumber(low, high);
+    winName = nameTwo;
+    makeCard(nameOne, nameTwo, winName, guessCount);
     clearGame();
-  }
+   }
     else if (guessTwo < ranNum) {
     responseTwo.innerText = "that's too low";
   } else if (guessTwo > ranNum) {
