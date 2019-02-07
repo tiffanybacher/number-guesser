@@ -48,7 +48,6 @@ resetButton.addEventListener('click', resetGame);
 cardBookmark.addEventListener('click', removeCard);
 winnerSide.addEventListener('click', removeAllCards);
 
-
 // FUNCTIONS
 
 function getTheNumber(low, high) {
@@ -214,6 +213,7 @@ function resetGame() {
   setDefaultText();
   setDefaultRange();
   disableButtons();
+  makeDiv();
 }
 
 function setDefaultText() {
@@ -261,6 +261,13 @@ function makeButton() {
   removeAllBtn.className = 'delete-all-btn';
   removeAllBtn.textContent = 'Remove All Cards';
   cardBookmark.appendChild(removeAllBtn);
+}
+
+function makeDiv() {
+  var cardBookmark = document.createElement('div');
+  cardBookmark.className = 'winner-cards';
+  cardBookmark.textContent = '';
+  winnerSide.appendChild(cardBookmark);
 }
 
 function removeCard() {
