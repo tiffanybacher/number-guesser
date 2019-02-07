@@ -20,6 +20,7 @@ var responseOne = document.querySelector('.response-1');
 var responseTwo = document.querySelector('.response-2');
 var errMessage = document.querySelector('.error');
 var cardBookmark = document.querySelector('.winner-cards');
+var winnerSide = document.querySelector('.winner-side');
 var card = document.querySelector('.card');
 var winName = document.querySelector('.winner-name');
 var guesses = document.querySelector('.num-guesses');
@@ -45,7 +46,7 @@ submitGuessBtn.addEventListener('click', updateResponseTwo);
 clearButton.addEventListener('click', clearGame);
 resetButton.addEventListener('click', resetGame);
 cardBookmark.addEventListener('click', removeCard);
-
+winnerSide.addEventListener('click', removeAllCards);
 
 // FUNCTIONS
 
@@ -243,6 +244,7 @@ function disableButtons() {
 function makeCard() {
   winName = nameOne;
   winName = nameTwo;
+  makeButton();
   cardBookmark.innerHTML += 
    `<article class="card">
     <h4 class="card-name name-1">${nameOne}</h4><h5> vs. </h5><h4 class="card-name name-2">${nameTwo}</h4>
@@ -250,11 +252,24 @@ function makeCard() {
     <h2>WINNER</h2>
     <h5 class="num-guesses">${guessCount}</h5><h5> GUESSES</h5>
     <button class="delete-btn">X</button>
-    </article>`
+    </article>`;
+}
+
+function makeButton() {
+  var removeAllBtn = document.createElement('button');
+  removeAllBtn.className = 'delete-all-btn';
+  removeAllBtn.textContent = 'Remove All Cards';
+  cardBookmark.appendChild(removeAllBtn);
 }
 
 function removeCard() {
   if (event.target.className === 'delete-btn') {
+    event.target.parentElement.remove();
+  }
+}
+
+function removeAllCards() {
+  if (event.target.className === 'delete-all-btn') {
     event.target.parentElement.remove();
   }
 }
@@ -267,4 +282,13 @@ function removeCard() {
 // function removeAllCards() {
 //   var card = document.querySelector('.card');
 //   card.remove();
+// }
+
+// possibly create a new div when a card is created?
+
+// function makeDiv() {
+//   var cardBookmark = document.createElement('div');
+//   cardBookmark.className = 'winner-cards';
+//   cardBookmark.textContent = '';
+//   winnerSide.appendChild(cardBookmark);
 // }

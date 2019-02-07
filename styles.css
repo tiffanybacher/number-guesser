@@ -225,10 +225,6 @@ label {
   border: 2px solid #b2b2b2;
 }
 
-.delete-all-btn {
-  display: none;
-}
-
 @media screen and (max-width: 768px) {
 
   body {
