@@ -213,7 +213,6 @@ function resetGame() {
   setDefaultText();
   setDefaultRange();
   disableButtons();
-  makeDiv();
 }
 
 function setDefaultText() {
@@ -263,13 +262,6 @@ function makeButton() {
   cardBookmark.appendChild(removeAllBtn);
 }
 
-function makeDiv() {
-  var cardBookmark = document.createElement('div');
-  cardBookmark.className = 'winner-cards';
-  cardBookmark.textContent = '';
-  winnerSide.appendChild(cardBookmark);
-}
-
 function removeCard() {
   if (event.target.className === 'delete-btn') {
     event.target.parentElement.remove();
@@ -290,4 +282,13 @@ function removeAllCards() {
 // function removeAllCards() {
 //   var card = document.querySelector('.card');
 //   card.remove();
+// }
+
+// possibly create a new div when a card is created?
+
+// function makeDiv() {
+//   var cardBookmark = document.createElement('div');
+//   cardBookmark.className = 'winner-cards';
+//   cardBookmark.textContent = '';
+//   winnerSide.appendChild(cardBookmark);
 // }
