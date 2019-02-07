@@ -69,3 +69,4 @@ function setRange(event) {
 
 ## Turing Comp
 
+![image](https://user-images.githubusercontent.com/43790434/52418647-b8389180-2aab-11e9-970b-5fa2be9f5831.png)
